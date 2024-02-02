@@ -2,6 +2,22 @@
 
 ### FastAPI python backend for restaurant discovery feature.
 
+### Installation
+```
+python -m venv venv
+```
+```
+.\venv\Scripts\activate
+```
+```
+pip install -r requirements.txt
+```
+
+### Running locally
+```
+uvicorn main:app --reload
+```
+
 ### Specification
 
 *restaurants.json* in the repository contains one hundred restaurants from the Helsinki area. 
