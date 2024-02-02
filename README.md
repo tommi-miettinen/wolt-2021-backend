@@ -2,13 +2,25 @@
 
 ### FastAPI python backend for restaurant discovery feature.
 
-python -m venv venv
-.\venv\Scripts\activate
-pip install -r requirements.txt
-uvicorn main:app --reload
+### Installation
 
-to exit run
-deactivate
+```
+python -m venv venv
+```
+
+```
+.\venv\Scripts\activate
+```
+
+```
+pip install -r requirements.txt
+```
+
+### Running locally
+
+```
+uvicorn main:app --reload
+```
 
 ### Specification
 
