@@ -1,7 +1,11 @@
-import services.discovery_service as discovery_service
+from services.discovery_service import DiscoveryService
 from fastapi import FastAPI
+from restaurants import restaurants as data
 
 app = FastAPI()
+
+
+discovery_service = DiscoveryService(data)
 
 
 def create_payload(popular, new, nearby):
