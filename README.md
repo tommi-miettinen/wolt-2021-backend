@@ -2,6 +2,9 @@
 
 ### FastAPI python backend for restaurant discovery feature.
 
+#### Live demo 
+https://wolt-backend-2021.azurewebsites.net/discovery?lat=24.935326&lng=60.155631
+
 ### Installation
 
 ```
