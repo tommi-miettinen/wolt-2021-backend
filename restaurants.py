@@ -1,8 +1,0 @@
-import json
-from models.restaurant import Restaurant
-
-with open("restaurants.json", "r") as file:
-    data = json.load(file)
-    json_restaurants = data["restaurants"]
-
-restaurants = [Restaurant(**x) for x in json_restaurants]

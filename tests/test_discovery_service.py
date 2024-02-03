@@ -1,25 +1,27 @@
+import os
+import sys
+
+current_dir = os.path.dirname(__file__)
+root_dir = os.path.abspath(os.path.join(current_dir, ".."))
+os.chdir(root_dir)
+sys.path.append(root_dir)
+
+
 from services.discovery_service import DiscoveryService
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 from main import create_payload
-from pydantic import BaseModel
-from typing import List
+from models.restaurant import Restaurant
+
 
 older_than_4_months_date = (
     datetime.now() - relativedelta(months=4) + relativedelta(days=1)
 ).strftime("%Y-%m-%d")
 
 
-class MockRestaurant(BaseModel):
-    launch_date: str
-    location: List[float]
-    name: str
-    online: bool
-    popularity: float
-
-
 mock_data = [
     {
+        "blurhash": "",
         "name": "Restaurant 1",
         "location": (1, 1),
         "popularity": 5,
@@ -27,6 +29,7 @@ mock_data = [
         "launch_date": "2022-01-01",
     },
     {
+        "blurhash": "",
         "name": "Restaurant 2",
         "location": (1, 1),
         "online": True,
@@ -34,6 +37,7 @@ mock_data = [
         "launch_date": "2022-02-01",
     },
     {
+        "blurhash": "",
         "launch_date": older_than_4_months_date,
         "location": [1, 1],
         "name": "Old Restaurant",
@@ -42,8 +46,13 @@ mock_data = [
     },
 ]
 
-restaurants = [MockRestaurant(**x) for x in mock_data]
-discovery_service = DiscoveryService(restaurants)
+
+class MockRepository:
+    def get_restaurants(self):
+        return [Restaurant(**x) for x in mock_data]
+
+
+discovery_service = DiscoveryService(MockRepository())
 
 
 def test_get_most_popular_restaurants():

@@ -1,12 +1,12 @@
 from geopy.distance import geodesic
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
-from models.restaurant import Restaurant
+from repositories.restaurants import RestaurantRepository
 
 
 class DiscoveryService:
-    def __init__(self, data: list[Restaurant]):
-        self.data = data
+    def __init__(self, repository: RestaurantRepository):
+        self.restaurant_repository = repository
 
     def get_distance(self, latlng1: tuple, latlng2: tuple):
         return geodesic(latlng1, latlng2).kilometers
@@ -14,8 +14,10 @@ class DiscoveryService:
     def get_restaurants_filtered_by_distance(
         self, latlng: tuple, threshold: float = 1.5
     ):
+        restaurants = self.restaurant_repository.get_restaurants()
+
         return [
-            x for x in self.data if self.get_distance(latlng, x.location) <= threshold
+            x for x in restaurants if self.get_distance(latlng, x.location) <= threshold
         ]
 
     def get_most_popular_restaurants(self, latlng: tuple, take: int = 10):
