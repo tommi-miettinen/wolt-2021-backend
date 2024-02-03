@@ -1,7 +1,7 @@
 from services.discovery_service import DiscoveryService
 from repositories.restaurants import RestaurantRepository
 from fastapi import FastAPI, Depends
-
+from mangum import Mangum
 
 app = FastAPI()
 
@@ -11,13 +11,16 @@ def get_discovery_service():
 
 
 def create_payload(popular, new, nearby):
-    return {
-        "sections": [
-            {"title": "Popular Restaurants", "restaurants": popular},
-            {"title": "New Restaurants", "restaurants": new},
-            {"title": "Nearby Restaurants", "restaurants": nearby},
-        ]
-    }
+    sections = []
+
+    if popular:
+        sections.append({"title": "Popular Restaurants", "restaurants": popular})
+    if new:
+        sections.append({"title": "New Restaurants", "restaurants": new})
+    if nearby:
+        sections.append({"title": "Nearby Restaurants", "restaurants": nearby})
+
+    return {"sections": sections}
 
 
 @app.get("/discovery")

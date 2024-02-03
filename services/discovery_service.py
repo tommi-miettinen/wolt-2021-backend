@@ -9,10 +9,10 @@ class DiscoveryService:
         self.restaurant_repository = repository
 
     def get_distance(self, latlng1: tuple, latlng2: tuple):
-        return geodesic(latlng1, latlng2).kilometers
+        return geodesic(latlng1, latlng2).meters
 
     def get_restaurants_filtered_by_distance(
-        self, latlng: tuple, threshold: float = 1.5
+        self, latlng: tuple, threshold: float = 1500
     ):
         restaurants = self.restaurant_repository.get_restaurants()
 
@@ -47,7 +47,7 @@ class DiscoveryService:
         filtered_by_max_launch_date = [
             x
             for x in sorted_by_launch
-            if datetime.strptime(x.launch_date, "%Y-%m-%d") < no_older_than
+            if datetime.strptime(x.launch_date, "%Y-%m-%d") >= no_older_than
         ]
         return filtered_by_max_launch_date[:take]
 
