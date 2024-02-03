@@ -1,7 +1,6 @@
 from services.discovery_service import DiscoveryService
 from repositories.restaurants import RestaurantRepository
 from fastapi import FastAPI, Depends
-from mangum import Mangum
 
 app = FastAPI()
 
